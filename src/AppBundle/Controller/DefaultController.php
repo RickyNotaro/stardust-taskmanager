@@ -36,6 +36,16 @@ class DefaultController extends Controller
 
         $task = new Task();
         $task->setLabel($label);
+        $validator = $this->get('validator');
+        $errors = $validator->validate($task);
+
+        if (count($errors) > 0) {
+            $this->addFlash(
+                'danger',
+                'Task\'s description is required!'
+            );
+            return $this->redirect( $this->generateUrl('homepage') );
+        }
 
         $em->persist($task);
         $em->flush();

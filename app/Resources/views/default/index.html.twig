@@ -2,6 +2,13 @@
 
 {% block body %}
     <div class="row">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    <b>Alert :</b> {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
         <div class="col-md-12">
           <table class="table table-striped">
             <thead>
@@ -20,7 +27,7 @@
                 <tr>
                     <form method="post" action="{{ app.request.baseurl }}/add">
                         <td colspan="2">
-                            <input type="textbox" name="label" class="small-6 small-center" placeholder="New task description..."> <button type="submit" class="btn btn-sm btn-primary">Add</button>
+                            <input type="textbox" name="label" class="small-6 small-center" placeholder="New task description..." required> <button type="submit" class="btn btn-sm btn-primary">Add</button>
                         </td>
                     </form>
                 </tr>
